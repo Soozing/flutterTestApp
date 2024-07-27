@@ -9,59 +9,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(),
-      body: Column(
+      body: const Column(
         children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                color: const Color(0xff1D1617).withOpacity(0.11),
-                blurRadius: 40,
-                spreadRadius: 0.0,
-              )
-            ]),
-            margin: const EdgeInsets.only(
-              top: 40,
-              left: 20,
-              right: 20,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: SvgPicture.asset('assets/icons/Search.svg'),
-                ),
-                suffixIcon: SizedBox(
-                  width: 100,
-                  child: IntrinsicHeight(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const VerticalDivider(
-                          color: Colors.black,
-                          indent: 10.0,
-                          endIndent: 10.0,
-                          thickness: 0.4,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: SvgPicture.asset("assets/icons/Filter.svg"),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                hintText: "Search...",
-                hintStyle: const TextStyle(color: Colors.grey),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.all(15),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-          ),
+          SearchBar(),
         ],
       ),
     );
@@ -117,6 +67,67 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: const Color(0xff1D1617).withOpacity(0.11),
+          blurRadius: 40,
+          spreadRadius: 0.0,
+        )
+      ]),
+      margin: const EdgeInsets.only(
+        top: 40,
+        left: 20,
+        right: 20,
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(12),
+            child: SvgPicture.asset('assets/icons/Search.svg'),
+          ),
+          suffixIcon: SizedBox(
+            width: 100,
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const VerticalDivider(
+                    color: Colors.black,
+                    indent: 10.0,
+                    endIndent: 10.0,
+                    thickness: 0.4,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SvgPicture.asset("assets/icons/Filter.svg"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          hintText: "Search...",
+          hintStyle: const TextStyle(color: Colors.grey),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.all(15),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
     );
   }
 }
