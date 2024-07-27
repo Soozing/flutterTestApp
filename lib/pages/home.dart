@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.white,
       appBar: appBar(),
       body: Column(
         children: [
@@ -26,6 +26,32 @@ class HomePage extends StatelessWidget {
             ),
             child: TextField(
               decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: SvgPicture.asset('assets/icons/Search.svg'),
+                ),
+                suffixIcon: SizedBox(
+                  width: 100,
+                  child: IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const VerticalDivider(
+                          color: Colors.black,
+                          indent: 10.0,
+                          endIndent: 10.0,
+                          thickness: 0.4,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: SvgPicture.asset("assets/icons/Filter.svg"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                hintText: "Search...",
+                hintStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white,
                 contentPadding: const EdgeInsets.all(15),
