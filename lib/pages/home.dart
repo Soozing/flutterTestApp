@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:testapp/models/category.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Category> categories = [];
+
+  void _getCategories() {
+    categories = Category.getCategories();
+  }
+
+  @override
+  void initState() {
+    // super.initState();
+    _getCategories();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _getCategories();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(),
-      body: const Column(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SearchBar(),
+          const SearchBar(),
+          const SizedBox(
+            height: 40,
+          ),
+          CategoryView(categories: categories)
         ],
       ),
     );
@@ -71,6 +96,81 @@ class HomePage extends StatelessWidget {
   }
 }
 
+class CategoryView extends StatelessWidget {
+  const CategoryView({
+    super.key,
+    required this.categories,
+  });
+
+  final List<Category> categories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Category",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            height: 120,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(width: 25),
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              padding: const EdgeInsets.only(
+                // left: 20,
+                right: 20,
+              ),
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 100,
+                  decoration: BoxDecoration(
+                      color: categories[index].boxColor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        width: 50,
+                        height: 50,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SvgPicture.asset(categories[index].iconPath),
+                        ),
+                      ),
+                      Text(
+                        categories[index].name,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class SearchBar extends StatelessWidget {
   const SearchBar({
     super.key,
@@ -95,7 +195,7 @@ class SearchBar extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12),
-            child: SvgPicture.asset('assets/icons/Search.svg'),
+            child: SvgPicture.asset('assets/icons/search.svg'),
           ),
           suffixIcon: SizedBox(
             width: 100,
@@ -111,7 +211,7 @@ class SearchBar extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: SvgPicture.asset("assets/icons/Filter.svg"),
+                    child: SvgPicture.asset("assets/icons/filter.svg"),
                   ),
                 ],
               ),
