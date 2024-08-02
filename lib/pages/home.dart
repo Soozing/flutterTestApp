@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:testapp/models/category.dart';
+import 'package:testapp/models/diet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,20 +12,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Category> categories = [];
+  List<Diet> diets = [];
 
-  void _getCategories() {
+  void _getStates() {
     categories = Category.getCategories();
+    diets = Diet.getDiets();
   }
 
   @override
   void initState() {
     // super.initState();
-    _getCategories();
+    _getStates();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getCategories();
+    _getStates();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,7 +39,47 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 40,
           ),
-          CategoryView(categories: categories)
+          CategoryView(categories: categories),
+          const SizedBox(
+            height: 40,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Recommendation for Diet',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  height: 240,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: diets.length,
+                      separatorBuilder: (context, index) => const SizedBox(
+                            width: 25,
+                          ),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: diets[index].boxColor,
+                              borderRadius: BorderRadius.circular(25)),
+                          width: 210,
+                          child: Text(diets[index].name),
+                        );
+                      }),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

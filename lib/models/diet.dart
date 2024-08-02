@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
 class Diet {
   String name;
+  Color boxColor;
   String iconPath;
   String level;
   String duration;
@@ -8,6 +11,7 @@ class Diet {
 
   Diet({
     required this.name,
+    required this.boxColor,
     required this.iconPath,
     required this.level,
     required this.duration,
@@ -15,11 +19,12 @@ class Diet {
     required this.isViewSelected,
   });
 
-  static List<Diet> _getDiets() {
+  static List<Diet> getDiets() {
     List<Diet> diets = [];
 
     diets.add(Diet(
       name: 'Honey Pancake',
+      boxColor: const Color.fromARGB(255, 149, 254, 214),
       iconPath: 'assets/icons/honey-pancakes.svg',
       level: 'Easy',
       duration: '30 mins',
@@ -29,6 +34,7 @@ class Diet {
 
     diets.add(Diet(
       name: 'Canai Bread',
+      boxColor: const Color.fromARGB(255, 149, 254, 214),
       iconPath: 'assets/icons/canai-bread.svg',
       level: 'Easy',
       duration: '20 mins',
